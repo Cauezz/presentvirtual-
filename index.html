@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crie Seu Site Romântico</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="content">
+        <h1>Crie Seu Site Romântico</h1>
+        
+        <div>
+            <label for="image-upload">Selecione suas fotos e vídeos:</label>
+            <input type="file" id="image-upload" accept="image/*,video/*" multiple>
+        </div>
+
+        <div>
+            <label for="music-upload">Selecione a música de fundo:</label>
+            <input type="file" id="music-upload" accept="audio/*">
+        </div>
+
+        <div>
+            <label for="custom-text">Escreva um texto fofo:</label>
+            <textarea id="custom-text" rows="4"></textarea>
+        </div>
+
+        <button onclick="showPreview()">Ver Prévia</button>
+        <div id="preview-container"></div>
+
+        <button onclick="generateHTML()">Gerar HTML</button>
+        <button onclick="downloadHTML()">Baixar HTML</button>
+        <div id="generated-link-container"></div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
