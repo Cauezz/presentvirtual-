@@ -20,17 +20,10 @@
             // Configurar slides
             const previewSlideshow = document.getElementById('preview-slideshow');
             images.forEach(src => {
-                let media;
-                if (src.endsWith('.mp4') || src.endsWith('.webm')) {
-                    media = document.createElement('video');
-                    media.src = src;
-                    media.controls = true;
-                } else {
-                    media = document.createElement('img');
-                    media.src = src;
-                }
-                media.classList.add('slides');
-                previewSlideshow.appendChild(media);
+                const img = document.createElement('img');
+                img.src = src;
+                img.classList.add('slides');
+                previewSlideshow.appendChild(img);
             });
 
             // Mostrar slides automaticamente

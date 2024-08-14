@@ -4,7 +4,6 @@ body {
     color: #ff1493;
     text-align: center;
     padding: 20px;
-    margin: 0;
 }
 
 h1 {
@@ -22,31 +21,54 @@ h1 {
     border-radius: 15px;
     box-shadow: 0 0 15px rgba(255, 20, 147, 0.5);
     border: 3px solid #ff69b4;
-    position: relative;
-    overflow: hidden;
 }
 
-/* Estilo do contêiner do slideshow */
-#preview-slideshow {
-    position: relative;
+label {
+    display: block;
+    margin-top: 10px;
+    font-size: 1.2em;
+}
+
+textarea {
     width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-    border-radius: 15px;
-    overflow: hidden;
-    background-color: #ffe4e1; /* Cor de fundo para mostrar os limites */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    aspect-ratio: 9 / 16; /* Define uma proporção 9:16 */
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 2px solid #ff69b4;
 }
 
-/* Imagens e vídeos no slideshow */
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    background-color: #ff1493;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ff69b4;
+}
+
+#preview-container {
+    margin-top: 20px;
+}
+
+#generated-link-container {
+    margin-top: 20px;
+}
+
 .slides {
     display: none;
+    width: 100%;
+    height: auto;
     max-width: 100%;
-    max-height: 100%;
-    object-fit: cover; /* Cobre o quadro definido mantendo a proporção */
+    margin: 0 auto;
+    border-radius: 15px;
+    aspect-ratio: 9 / 16; /* Ajustar a proporção para 9:16 */
+    object-fit: cover;
 }
 
 #preview-text {
@@ -95,17 +117,11 @@ h1 {
 }
 
 @media screen and (max-width: 768px) {
-    #content {
+    .slides {
         max-width: 100%;
-        padding: 10px;
     }
 
     #preview-text {
         font-size: 1.2em;
-    }
-
-    #preview-slideshow {
-        max-width: 100%;
-        aspect-ratio: 1 / 1; /* Ajusta a proporção para 1:1 em telas menores */
     }
 }
