@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prévia do Nosso Amor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="content">
+        <h1>Nosso Amor</h1>
+        <div id="preview-slideshow"></div>
+        <div id="preview-text"></div>
+        <audio id="preview-music" controls autoplay></audio>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            const images = JSON.parse(params.get('images'));
+            const musicFile = params.get('music');
+            const customText = params.get('text');
+
+            // Configurar slides
+            const previewSlideshow = document.getElementById('preview-slideshow');
+            images.forEach(src => {
+                const img = document.createElement('img');
+                img.src = src;
+                img.classList.add('slides');
+                previewSlideshow.appendChild(img);
+            });
+
+            // Mostrar slides automaticamente
+            let currentSlide = 0;
+            function showSlides() {
+                const slides = document.getElementsByClassName("slides");
+                for (let i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";
+                }
+                currentSlide++;
+                if (currentSlide > slides.length) {
+                    currentSlide = 1;
+                }
+                slides[currentSlide - 1].style.display = "block";
+                setTimeout(showSlides, 2000); // Troca a cada 2 segundos
+            }
+            showSlides();
+
+            // Reproduzir música automaticamente
+            const previewMusic = document.getElementById('preview-music');
+            if (musicFile) {
+                previewMusic.src = musicFile;
+                previewMusic.play();
+            }
+
+            // Adicionar texto personalizado
+            const previewText = document.getElementById('preview-text');
+            previewText.innerText = customText;
+        });
+    </script>
+</body>
+</html>
