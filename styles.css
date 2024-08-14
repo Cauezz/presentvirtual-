@@ -65,6 +65,7 @@ button:hover {
     width: 100%;
     max-width: 600px;
     margin: 0 auto;
+    border: 5px solid #ff69b4; /* Adiciona o contorno rosa */
     border-radius: 15px;
 }
 
@@ -72,45 +73,15 @@ button:hover {
     margin-top: 20px;
     font-size: 1.5em;
     color: #ff1493;
+    text-align: center; /* Centraliza o texto */
 }
 
-.heart {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background-color: #ff69b4;
-    transform: rotate(45deg);
-    animation: float 5s infinite;
-}
-
-.heart::before, .heart::after {
-    content: "";
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background-color: #ff69b4;
-    border-radius: 50%;
-}
-
-.heart::before {
-    top: -10px;
-    left: 0;
-}
-
-.heart::after {
-    top: 0;
-    left: -10px;
-}
-
-@keyframes float {
-    0% {
-        transform: translateY(0) rotate(45deg);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-800px) rotate(45deg);
-        opacity: 0;
-    }
+#preview-slideshow {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    aspect-ratio: 9 / 16; /* Define a proporção 9:16 */
 }
 
 @media screen and (max-width: 768px) {
