@@ -4,6 +4,7 @@ body {
     color: #ff1493;
     text-align: center;
     padding: 20px;
+    margin: 0;
 }
 
 h1 {
@@ -21,20 +22,41 @@ h1 {
     border-radius: 15px;
     box-shadow: 0 0 15px rgba(255, 20, 147, 0.5);
     border: 3px solid #ff69b4;
+    position: relative;
+    overflow: hidden;
 }
 
-label {
-    display: block;
-    margin-top: 10px;
-    font-size: 1.2em;
-}
-
-textarea {
+#preview-slideshow {
+    position: relative;
     width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 10px;
-    border: 2px solid #ff69b4;
+    max-width: 600px; /* Limite de largura */
+    max-height: 400px; /* Limite de altura */
+    margin: 0 auto;
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: #ffe4e1; /* Cor de fundo para mostrar os limites */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slides {
+    display: none;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Ajusta a imagem/vídeo para caber no contêiner sem cortar */
+    border-radius: 15px;
+}
+
+#preview-text {
+    margin-top: 20px;
+    font-size: 1.5em;
+    color: #ff1493;
+    text-align: center;
+}
+
+#preview-music {
+    margin-top: 20px;
 }
 
 button {
@@ -52,73 +74,42 @@ button:hover {
     background-color: #ff69b4;
 }
 
-#preview-container {
-    margin-top: 20px;
-}
-
-#generated-link-container {
-    margin-top: 20px;
-}
-
-.slides {
-    display: none;
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-    border-radius: 15px;
-}
-
-#preview-text {
-    margin-top: 20px;
-    font-size: 1.5em;
-    color: #ff1493;
-}
-
-.heart {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background-color: #ff69b4;
-    transform: rotate(45deg);
-    animation: float 5s infinite;
-}
-
-.heart::before, .heart::after {
-    content: "";
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background-color: #ff69b4;
-    border-radius: 50%;
-}
-
-.heart::before {
-    top: -10px;
-    left: 0;
-}
-
-.heart::after {
-    top: 0;
-    left: -10px;
-}
-
-@keyframes float {
-    0% {
-        transform: translateY(0) rotate(45deg);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-800px) rotate(45deg);
-        opacity: 0;
-    }
-}
-
 @media screen and (max-width: 768px) {
-    .slides {
-        max-width: 100%;
+    h1 {
+        font-size: 2.5em;
     }
 
     #preview-text {
         font-size: 1.2em;
+    }
+
+    button {
+        font-size: 1em;
+        padding: 8px 16px;
+    }
+
+    #preview-slideshow {
+        max-width: 90%;
+        max-height: 300px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    #preview-text {
+        font-size: 1em;
+    }
+
+    button {
+        font-size: 0.9em;
+        padding: 6px 12px;
+    }
+
+    #preview-slideshow {
+        max-width: 100%;
+        max-height: 200px;
     }
 }
