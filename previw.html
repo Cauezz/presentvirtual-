@@ -7,12 +7,9 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="content">
-        <h1>Nosso Amor</h1>
-        <div id="preview-slideshow"></div>
-        <div id="preview-text"></div>
-        <audio id="preview-music" controls autoplay></audio>
-    </div>
+    <div id="preview-slideshow"></div>
+    <div id="preview-text"></div>
+    <audio id="preview-music" controls autoplay></audio>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const params = new URLSearchParams(window.location.search);
@@ -23,10 +20,17 @@
             // Configurar slides
             const previewSlideshow = document.getElementById('preview-slideshow');
             images.forEach(src => {
-                const img = document.createElement('img');
-                img.src = src;
-                img.classList.add('slides');
-                previewSlideshow.appendChild(img);
+                let media;
+                if (src.endsWith('.mp4') || src.endsWith('.webm')) {
+                    media = document.createElement('video');
+                    media.src = src;
+                    media.controls = true;
+                } else {
+                    media = document.createElement('img');
+                    media.src = src;
+                }
+                media.classList.add('slides');
+                previewSlideshow.appendChild(media);
             });
 
             // Mostrar slides automaticamente

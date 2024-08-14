@@ -1,52 +1,41 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const imageUpload = document.getElementById('image-upload');
-    const musicUpload = document.getElementById('music-upload');
-    const customText = document.getElementById('custom-text');
-    const previewContainer = document.getElementById('preview-container');
+document.addEventListener('DOMContentLoaded', function () {
+    const imagesInput = document.getElementById('images');
+    const musicInput = document.getElementById('music');
+    const textInput = document.getElementById('text');
     const generatePreviewButton = document.getElementById('generate-preview');
+    const generateLinkButton = document.getElementById('generate-link');
+    const previewSlideshow = document.getElementById('preview-slideshow');
+    const previewText = document.getElementById('preview-text');
+    const previewMusic = document.getElementById('preview-music');
     const generatedLinkContainer = document.getElementById('generated-link-container');
 
-    generatePreviewButton.addEventListener('click', function() {
-        const files = imageUpload.files;
-        const music = musicUpload.files[0];
-        const text = customText.value;
+    generatePreviewButton.addEventListener('click', function () {
+        const files = imagesInput.files;
+        const musicFile = musicInput.files[0];
+        const customText = textInput.value;
 
-        if (files.length === 0 || !music || !text) {
-            alert('Por favor, envie fotos, selecione uma música e escreva uma mensagem.');
-            return;
-        }
+        previewSlideshow.innerHTML = '';
+        previewText.innerText = '';
+        previewMusic.src = '';
 
-        const imageSources = [];
-        for (let i = 0; i < files.length; i++) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                imageSources.push(e.target.result);
-                if (imageSources.length === files.length) {
-                    generatePreview(imageSources, music, text);
-                }
-            };
-            reader.readAsDataURL(files[i]);
-        }
-    });
-
-    function generatePreview(images, music, text) {
-        const previewHtml = `
-            <div id="preview-slideshow"></div>
-            <div id="preview-text">${text}</div>
-            <audio id="preview-music" controls autoplay>
-                <source src="${URL.createObjectURL(music)}" type="${music.type}">
-            </audio>
-        `;
-        previewContainer.innerHTML = previewHtml;
-
-        const previewSlideshow = document.getElementById('preview-slideshow');
-        images.forEach(src => {
-            const img = document.createElement('img');
-            img.src = src;
-            img.classList.add('slides');
-            previewSlideshow.appendChild(img);
+        const imageUrls = [];
+        Array.from(files).forEach(file => {
+            const url = URL.createObjectURL(file);
+            imageUrls.push(url);
+            let media;
+            if (file.type.startsWith('video')) {
+                media = document.createElement('video');
+                media.src = url;
+                media.controls = true;
+            } else {
+                media = document.createElement('img');
+                media.src = url;
+            }
+            media.classList.add('slides');
+            previewSlideshow.appendChild(media);
         });
 
+        // Exibir o slideshow de imagens/vídeos
         let currentSlide = 0;
         function showSlides() {
             const slides = document.getElementsByClassName("slides");
@@ -58,21 +47,38 @@ document.addEventListener('DOMContentLoaded', function() {
                 currentSlide = 1;
             }
             slides[currentSlide - 1].style.display = "block";
-            setTimeout(showSlides, 2000);
+            setTimeout(showSlides, 2000); // Troca a cada 2 segundos
         }
         showSlides();
 
-        const params = new URLSearchParams();
-        params.append('images', JSON.stringify(images));
-        params.append('music', URL.createObjectURL(music));
-        params.append('text', text);
+        if (musicFile) {
+            const musicUrl = URL.createObjectURL(musicFile);
+            previewMusic.src = musicUrl;
+            previewMusic.play();
+        }
 
-        const previewLink = document.createElement('a');
-        previewLink.href = `preview.html?${params.toString()}`;
-        previewLink.textContent = 'Clique aqui para ver a prévia completa';
-        previewLink.target = '_blank';
+        previewText.innerText = customText;
+    });
 
-        generatedLinkContainer.innerHTML = '';
-        generatedLinkContainer.appendChild(previewLink);
-    }
+    generateLinkButton.addEventListener('click', function () {
+        const files = imagesInput.files;
+        const musicFile = musicInput.files[0];
+        const customText = textInput.value;
+
+        const imageUrls = [];
+        Array.from(files).forEach(file => {
+            const url = URL.createObjectURL(file);
+            imageUrls.push(url);
+        });
+
+        let musicUrl = '';
+        if (musicFile) {
+            musicUrl = URL.createObjectURL(musicFile);
+        }
+
+        const queryString = `?images=${encodeURIComponent(JSON.stringify(imageUrls))}&music=${encodeURIComponent(musicUrl)}&text=${encodeURIComponent(customText)}`;
+        const previewLink = `preview.html${queryString}`;
+
+        generatedLinkContainer.innerHTML = `<a href="${previewLink}" target="_blank">Visualizar Prévia</a>`;
+    });
 });

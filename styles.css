@@ -26,11 +26,11 @@ h1 {
     overflow: hidden;
 }
 
+/* Estilo do contêiner do slideshow */
 #preview-slideshow {
     position: relative;
     width: 100%;
-    max-width: 600px; /* Limite de largura */
-    max-height: 400px; /* Limite de altura */
+    max-width: 600px;
     margin: 0 auto;
     border-radius: 15px;
     overflow: hidden;
@@ -38,78 +38,74 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    aspect-ratio: 9 / 16; /* Define uma proporção 9:16 */
 }
 
+/* Imagens e vídeos no slideshow */
 .slides {
     display: none;
     max-width: 100%;
     max-height: 100%;
-    object-fit: contain; /* Ajusta a imagem/vídeo para caber no contêiner sem cortar */
-    border-radius: 15px;
+    object-fit: cover; /* Cobre o quadro definido mantendo a proporção */
 }
 
 #preview-text {
     margin-top: 20px;
     font-size: 1.5em;
     color: #ff1493;
-    text-align: center;
 }
 
-#preview-music {
-    margin-top: 20px;
-}
-
-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 1.2em;
-    background-color: #ff1493;
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-button:hover {
+.heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
     background-color: #ff69b4;
+    transform: rotate(45deg);
+    animation: float 5s infinite;
+}
+
+.heart::before, .heart::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #ff69b4;
+    border-radius: 50%;
+}
+
+.heart::before {
+    top: -10px;
+    left: 0;
+}
+
+.heart::after {
+    top: 0;
+    left: -10px;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(45deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-800px) rotate(45deg);
+        opacity: 0;
+    }
 }
 
 @media screen and (max-width: 768px) {
-    h1 {
-        font-size: 2.5em;
+    #content {
+        max-width: 100%;
+        padding: 10px;
     }
 
     #preview-text {
         font-size: 1.2em;
     }
 
-    button {
-        font-size: 1em;
-        padding: 8px 16px;
-    }
-
-    #preview-slideshow {
-        max-width: 90%;
-        max-height: 300px;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    h1 {
-        font-size: 2em;
-    }
-
-    #preview-text {
-        font-size: 1em;
-    }
-
-    button {
-        font-size: 0.9em;
-        padding: 6px 12px;
-    }
-
     #preview-slideshow {
         max-width: 100%;
-        max-height: 200px;
+        aspect-ratio: 1 / 1; /* Ajusta a proporção para 1:1 em telas menores */
     }
 }
