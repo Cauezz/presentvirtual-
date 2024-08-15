@@ -168,11 +168,19 @@ function generateHTML() {
     previewLink.href = url;
     previewLink.target = '_blank'; // Abre o link em uma nova aba
     previewLink.innerText = 'Clique aqui para visualizar a prévia do HTML';
-    
-    // Adicionar o link à página para visualização
+
+    // Criar um link para download do HTML
+    const downloadLink = document.createElement('a');
+    downloadLink.href = url;
+    downloadLink.download = 'site-romantico.html';
+    downloadLink.innerText = 'Clique aqui para baixar o HTML';
+
+    // Adicionar os links à página
     const previewContainer = document.getElementById('generated-link-container');
     previewContainer.innerHTML = ''; // Limpar conteúdo anterior
     previewContainer.appendChild(previewLink);
+    previewContainer.appendChild(document.createElement('br')); // Adicionar quebra de linha
+    previewContainer.appendChild(downloadLink);
 
     // Opcional: Liberar o URL após um tempo para liberar memória
     setTimeout(() => URL.revokeObjectURL(url), 60000); // Liberar após 1 minuto
